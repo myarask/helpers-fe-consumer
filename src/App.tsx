@@ -1,26 +1,24 @@
 import * as React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import logo from './logo.svg';
 import './App.css';
+import { Button, LinearProgress } from '@material-ui/core';
 
 const App = () => {
   const { isLoading, isAuthenticated, error, user, loginWithRedirect, logout } = useAuth0();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LinearProgress />;
   }
   if (error) {
     return <div>Oops... {error.message}</div>;
   }
   if (!isAuthenticated) {
-    return <button onClick={loginWithRedirect}>Log in</button>;
+    return <Button onClick={loginWithRedirect}>Log in</Button>;
   }
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
