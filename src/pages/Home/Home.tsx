@@ -12,7 +12,7 @@ const Home = () => {
 
   if (myUser.loading || activeVisits.loading) return <LinearProgress />;
 
-  const hasApprovedClients = myUser.data.myUser?.clients.some((client: any) => client.approvedAt);
+  const hasApprovedClients = myUser.data.myUser?.clients.some((client) => client.approvedAt);
   // const { activeVisits, loading } = useActiveVisits();
   // const { hasApprovedClients } = useIdentity();
 

@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Home } from './pages';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useAuth0 } from '@auth0/auth0-react';
 import { LinearProgress } from '@material-ui/core';
+import { paths } from './constants';
 import { GET_MY_USER } from './queries';
 
 const App = () => {
@@ -21,19 +23,20 @@ const App = () => {
   }
 
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     {myUser?.data?.myUser?.fullName}
-    //     <p>
-    //       Edit <code>src/App.tsx</code> and save to reload.
-    //     </p>
-    //     <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-    //       Learn React
-    //     </a>
-    //     <button onClick={() => logout({ returnTo: window.location.origin })}>Log out</button>
-    //   </header>
-    // </div>
-    <Home />
+    <BrowserRouter>
+      <Switch>
+        {/* <Route path={paths.profile} component={Profile} />
+        <Route path={paths.serviceHistory} component={ServiceHistory} />
+        <Route path={paths.paymentMethod} component={PaymentMethod} />
+        <Route path={paths.privacyAndTerms} component={PrivacyAndTerms} />
+        <Route path={paths.settings} component={Settings} />
+        <Route path={paths.support} component={Support} />
+        <Route path={paths.visitNew} component={VisitNew} />
+        <Route path={paths.visit} component={Visit} /> */}
+        <Route exact path={paths.home} component={Home} />
+        <Redirect to={paths.home} />
+      </Switch>
+    </BrowserRouter>
   );
 };
 

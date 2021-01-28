@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Box, Typography, ListItem, Icon, Divider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-// import getTotals from '../../utils/getTotals';
-// import { ServiceIcon } from '../../components';
 import { paths } from '../../constants';
 
 type Client = {
@@ -20,7 +18,7 @@ type HomeServiceProps = {
   services: Service[];
 };
 
-const getMessage = (visit: any) => {
+const getMessage = (visit) => {
   if (visit.finishedAt) return 'Visit complete';
   if (visit.startedAt) return 'Visit ongoing';
   if (visit.matchedAt) return 'Helper is on the way';
