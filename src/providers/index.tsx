@@ -1,1 +1,1 @@
-export * from './AuthorizedApolloProvider';
+export * from './AuthorizedApollo';

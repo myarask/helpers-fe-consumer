@@ -1,8 +1,11 @@
 import * as React from 'react';
+import { useQuery } from '@apollo/client';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Button, LinearProgress } from '@material-ui/core';
+import { LinearProgress } from '@material-ui/core';
+import { GET_MY_USER } from './queries';
 
 const App = () => {
+  const myUser = useQuery(GET_MY_USER);
   const { isLoading, isAuthenticated, error, loginWithRedirect, logout } = useAuth0();
 
   if (isLoading) {
@@ -19,6 +22,7 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
+        {myUser?.data?.myUser?.fullName}
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
