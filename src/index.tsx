@@ -7,6 +7,7 @@ import theme from './theme';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { AuthorizedApolloProvider } from './providers';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,10 +16,12 @@ ReactDOM.render(
       clientId={process.env.REACT_APP_AUTH_CLIENT_ID}
       redirectUri={window.location.origin}
     >
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
+      <AuthorizedApolloProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </AuthorizedApolloProvider>
     </Auth0Provider>
   </React.StrictMode>,
   document.getElementById('root'),
