@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Auth0Provider } from '@auth0/auth0-react';
+import { BrowserRouter } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from './theme';
@@ -16,12 +17,14 @@ ReactDOM.render(
       clientId={process.env.REACT_APP_AUTH_CLIENT_ID}
       redirectUri={window.location.origin}
     >
-      <AuthorizedApolloProvider>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
-      </AuthorizedApolloProvider>
+      <BrowserRouter>
+        <AuthorizedApolloProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <App />
+          </ThemeProvider>
+        </AuthorizedApolloProvider>
+      </BrowserRouter>
     </Auth0Provider>
   </React.StrictMode>,
   document.getElementById('root'),
