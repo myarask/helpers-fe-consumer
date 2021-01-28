@@ -12,7 +12,8 @@ const App = () => {
     return <div>Oops... {error.message}</div>;
   }
   if (!isAuthenticated) {
-    return <Button onClick={loginWithRedirect}>Log in</Button>;
+    loginWithRedirect();
+    return <LinearProgress />;
   }
 
   return (
