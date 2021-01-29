@@ -26,10 +26,7 @@ const Profile = () => {
         phoneNumber: myUser.data.myUser?.phoneNumber,
       }}
       validationSchema={validationSchema}
-      onSubmit={async (variables) => {
-        await updateMyUser({ variables });
-        // await refetch();
-      }}
+      onSubmit={(variables) => updateMyUser({ variables })}
     >
       {({ submitForm, isSubmitting }) => (
         <Box flexGrow={1} height="100%" display="flex" flexDirection="column">
