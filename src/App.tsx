@@ -6,6 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { LinearProgress } from '@material-ui/core';
 import { paths } from './constants';
 import { GET_MY_USER } from './queries';
+import { MainTopNav } from './components';
 
 const App = () => {
   const myUser = useQuery(GET_MY_USER);
@@ -24,6 +25,22 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <Switch>
+        <Route
+          exact
+          path={[
+            paths.home,
+            paths.paymentMethod,
+            paths.profile,
+            paths.upcomingServices,
+            paths.serviceHistory,
+            paths.support,
+            paths.privacyAndTerms,
+            paths.settings,
+          ]}
+          component={MainTopNav}
+        />
+      </Switch>
       <Switch>
         {/* <Route path={paths.profile} component={Profile} />
         <Route path={paths.serviceHistory} component={ServiceHistory} />
