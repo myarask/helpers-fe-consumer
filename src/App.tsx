@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Home } from './pages';
+import { Home, Profile } from './pages';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -42,7 +42,8 @@ const App = () => {
         />
       </Switch>
       <Switch>
-        {/* <Route path={paths.profile} component={Profile} />
+        <Route path={paths.profile} component={Profile} />
+        {/* 
         <Route path={paths.serviceHistory} component={ServiceHistory} />
         <Route path={paths.paymentMethod} component={PaymentMethod} />
         <Route path={paths.privacyAndTerms} component={PrivacyAndTerms} />

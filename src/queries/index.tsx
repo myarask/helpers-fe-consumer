@@ -39,4 +39,12 @@ const GET_MY_USER = gql`
   }
 `;
 
-export { GET_ACTIVE_VISITS, GET_MY_USER };
+const UPDATE_MY_USER = gql`
+  mutation UpdateMyUser($fullName: String!, $phoneNumber: String) {
+    updateMyUser(fullName: $fullName, phoneNumber: $phoneNumber) {
+      id
+    }
+  }
+`;
+
+export { GET_ACTIVE_VISITS, GET_MY_USER, UPDATE_MY_USER };
