@@ -56,7 +56,7 @@ const GET_VISIT = gql`
 `;
 
 const RELEASE_VISIT = gql`
-  mutation ReleaseVisit($id: ID!) {
+  mutation ReleaseVisit($id: Int!) {
     releaseVisit(id: $id) {
       id
     }

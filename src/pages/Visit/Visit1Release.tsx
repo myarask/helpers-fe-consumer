@@ -29,7 +29,7 @@ const VisitRelease = () => {
       return;
     }
 
-    await releaseVisit({ variables: { id } });
+    await releaseVisit({ variables: { id: Number(id) } });
   };
 
   return (

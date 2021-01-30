@@ -7,7 +7,7 @@ import { paths } from '../../constants';
 import { GET_ACTIVE_VISITS, GET_MY_USER } from '../../queries';
 
 const Home = () => {
-  const activeVisits = useQuery(GET_ACTIVE_VISITS);
+  const activeVisits = useQuery(GET_ACTIVE_VISITS, { pollInterval: 10000 });
   const myUser = useQuery(GET_MY_USER);
 
   if (myUser.loading || activeVisits.loading) return <LinearProgress />;
