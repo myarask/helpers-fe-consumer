@@ -39,6 +39,16 @@ const GET_MY_USER = gql`
   }
 `;
 
+const GET_SERVICES = gql`
+  query GetServices {
+    services {
+      id
+      name
+      fee
+    }
+  }
+`;
+
 const UPDATE_MY_USER = gql`
   mutation UpdateMyUser($fullName: String!, $phoneNumber: String) {
     updateMyUser(fullName: $fullName, phoneNumber: $phoneNumber) {
@@ -53,4 +63,12 @@ const SAVE_MY_CARD = gql`
   }
 `;
 
-export { GET_ACTIVE_VISITS, GET_MY_USER, UPDATE_MY_USER, SAVE_MY_CARD };
+const DRAFT_VISIT = gql`
+  mutation DraftVisit($input: VisitInput!) {
+    draftVisit(input: $input) {
+      id
+    }
+  }
+`;
+
+export { GET_ACTIVE_VISITS, GET_MY_USER, GET_SERVICES, UPDATE_MY_USER, SAVE_MY_CARD, DRAFT_VISIT };
