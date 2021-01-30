@@ -1,16 +1,13 @@
 import * as React from 'react';
-import { Home, Profile, PaymentMethod } from './pages';
+import { Home, Profile, PaymentMethod, Support } from './pages';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import { useAuth0 } from '@auth0/auth0-react';
 import { LinearProgress } from '@material-ui/core';
 import { paths } from './constants';
-import { GET_MY_USER } from './queries';
 import { MainTopNav } from './components';
 
 const App = () => {
-  const myUser = useQuery(GET_MY_USER);
-  const { isLoading, isAuthenticated, error, loginWithRedirect, logout } = useAuth0();
+  const { isLoading, isAuthenticated, error, loginWithRedirect } = useAuth0();
 
   if (isLoading) {
     return <LinearProgress />;
@@ -44,11 +41,9 @@ const App = () => {
       <Switch>
         <Route path={paths.profile} component={Profile} />
         <Route path={paths.paymentMethod} component={PaymentMethod} />
-        {/* 
-        <Route path={paths.paymentMethod} component={PaymentMethod} />
-        <Route path={paths.privacyAndTerms} component={PrivacyAndTerms} />
-        <Route path={paths.settings} component={Settings} />
         <Route path={paths.support} component={Support} />
+        {/* 
+        <Route path={paths.settings} component={Settings} />
         <Route path={paths.visitNew} component={VisitNew} />
         <Route path={paths.visit} component={Visit} /> */}
         <Route exact path={paths.home} component={Home} />
