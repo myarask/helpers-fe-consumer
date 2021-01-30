@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Home, Profile, PaymentMethod, Support, VisitNew } from './pages';
+import { Home, Profile, PaymentMethod, Support, VisitNew, Visit } from './pages';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { LinearProgress } from '@material-ui/core';
@@ -43,10 +43,7 @@ const App = () => {
         <Route path={paths.paymentMethod} component={PaymentMethod} />
         <Route path={paths.support} component={Support} />
         <Route path={paths.visitNew} component={VisitNew} />
-        {/* 
-        <Route path={paths.settings} component={Settings} />
-        <Route path={paths.visitNew} component={VisitNew} />
-        <Route path={paths.visit} component={Visit} /> */}
+        <Route path={paths.visit} component={Visit} />
         <Route exact path={paths.home} component={Home} />
         <Redirect to={paths.home} />
       </Switch>
