@@ -9,9 +9,7 @@ import { GET_VISIT } from '../../queries';
 
 const VisitFinished = () => {
   const { id } = useParams<{ id: string }>();
-  const visit = useQuery(GET_VISIT, {
-    variables: { id: Number(id) },
-  });
+  const visit = useQuery(GET_VISIT, { variables: { id: Number(id) } });
 
   if (visit.loading) return <LinearProgress />;
 

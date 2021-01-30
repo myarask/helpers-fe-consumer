@@ -11,10 +11,19 @@ import { RELEASE_VISIT, GET_MY_USER, GET_ACTIVE_VISITS, GET_VISIT } from '../../
 
 const VisitRelease = () => {
   const { id } = useParams<{ id: string }>();
-  const visit = useQuery(GET_VISIT, { variables: { id: Number(id) } });
+  const variables = { id: Number(id) };
+  const visit = useQuery(GET_VISIT, { variables });
   const myUser = useQuery(GET_MY_USER);
   const [releaseVisit, { loading: isReleasing }] = useMutation(RELEASE_VISIT, {
-    refetchQueries: [{ query: GET_ACTIVE_VISITS }, { query: GET_VISIT }],
+    refetchQueries: [
+      {
+        query: GET_ACTIVE_VISITS,
+      },
+      {
+        query: GET_VISIT,
+        variables,
+      },
+    ],
   });
   const history = useHistory();
 
