@@ -19,7 +19,7 @@ const VisitFinished = () => {
     <Box display="flex" flexDirection="column" height="100%">
       <BackTopNav />
       <Box p={2}>
-        <Typography>{`${visit.data.agencyUser.user.fullName} has completed the visit`}</Typography>
+        <Typography>{`${visit.data.visit.agencyUser.user.fullName} has completed the visit`}</Typography>
       </Box>
 
       <Box p={2}>

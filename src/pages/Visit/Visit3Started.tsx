@@ -28,7 +28,7 @@ const VisitStarted = () => {
 
   if (visit.loading) return <LinearProgress />;
 
-  const { startedAt, agencyUser, services, client, notes } = visit.data;
+  const { startedAt, agencyUser, services, client, notes } = visit.data.visit;
 
   return (
     <Box display="flex" flexDirection="column" height="100%">
