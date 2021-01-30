@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Home, Profile, PaymentMethod, Support, VisitNew, Visit } from './pages';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, Button } from '@material-ui/core';
 import { paths } from './constants';
 import { MainTopNav } from './components';
 
 const App = () => {
-  const { isLoading, isAuthenticated, error, loginWithRedirect } = useAuth0();
+  const { isLoading, isAuthenticated, error, loginWithPopup } = useAuth0();
 
   if (isLoading) {
     return <LinearProgress />;
@@ -16,8 +16,15 @@ const App = () => {
     return <div>Oops... {error.message}</div>;
   }
   if (!isAuthenticated) {
-    loginWithRedirect();
-    return <LinearProgress />;
+    // loginWithRedirect();
+    return (
+      <>
+        {/* <LinearProgress /> */}
+        Not authenticated
+        <div>{window.location.href}</div>
+        <Button onClick={() => loginWithPopup()}>Login</Button>
+      </>
+    );
   }
 
   return (

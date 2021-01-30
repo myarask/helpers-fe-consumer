@@ -5,6 +5,10 @@
   "dependencies": {
     "@apollo/client": "^3.3.7",
     "@auth0/auth0-react": "^1.2.0",
+    "@capacitor/android": "^2.4.6",
+    "@capacitor/cli": "^2.4.6",
+    "@capacitor/core": "^2.4.6",
+    "@capacitor/ios": "^2.4.6",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@stripe/react-stripe-js": "^1.2.1",
@@ -32,7 +36,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prod": "serve -s build -p 5000",
+    "copy": "npx cap copy",
+    "open-ios": "npx cap open ios"
   },
   "eslintConfig": {
     "extends": [
