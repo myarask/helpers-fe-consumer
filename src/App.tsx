@@ -7,7 +7,7 @@ import { paths } from './constants';
 import { MainTopNav } from './components';
 
 const App = () => {
-  const { isLoading, isAuthenticated, error, loginWithPopup } = useAuth0();
+  const { isLoading, isAuthenticated, error, loginWithRedirect } = useAuth0();
 
   if (isLoading) {
     return <LinearProgress />;
@@ -19,10 +19,7 @@ const App = () => {
     // loginWithRedirect();
     return (
       <>
-        {/* <LinearProgress /> */}
-        Not authenticated
-        <div>{window.location.href}</div>
-        <Button onClick={() => loginWithPopup()}>Login</Button>
+        <Button onClick={() => loginWithRedirect()}>Login</Button>
       </>
     );
   }

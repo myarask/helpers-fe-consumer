@@ -34,12 +34,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && npx cap copy",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prod": "serve -s build -p 5000",
     "copy": "npx cap copy",
-    "open-ios": "npx cap open ios"
+    "ios": "npx cap open ios"
   },
   "eslintConfig": {
     "extends": [
