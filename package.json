@@ -39,7 +39,8 @@
     "eject": "react-scripts eject",
     "prod": "serve -s build -p 5000",
     "copy": "npx cap copy",
-    "ios": "npx cap open ios"
+    "ios": "npx cap open ios",
+    "android": "npx cap open android"
   },
   "eslintConfig": {
     "extends": [

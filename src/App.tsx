@@ -5,21 +5,37 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { LinearProgress, Button } from '@material-ui/core';
 import { paths } from './constants';
 import { MainTopNav } from './components';
+import { Plugins } from '@capacitor/core';
+
+const { Device } = Plugins;
+
+const redirectUris = {
+  web: window.location.origin,
+  ios: `{PRODUCT_BUNDLE_IDENTIFIER}://${process.env.REACT_APP_AUTH_DOMAIN}/ios/{PRODUCT_BUNDLE_IDENTIFIER}/callback`,
+  android: `ca.gethelpers.app://${process.env.REACT_APP_AUTH_DOMAIN}/android/ca.gethelpers.app/callback`,
+};
 
 const App = () => {
-  const { isLoading, isAuthenticated, error, loginWithRedirect } = useAuth0();
+  const { isLoading, isAuthenticated, error, user, loginWithRedirect } = useAuth0();
+  const [deviceInfo, setDeviceInfo] = React.useState<any>(null);
 
-  if (isLoading) {
+  React.useEffect(() => {
+    Device.getInfo().then(setDeviceInfo);
+  }, [Device, setDeviceInfo]);
+
+  if (isLoading || !deviceInfo) {
     return <LinearProgress />;
   }
   if (error) {
     return <div>Oops... {error.message}</div>;
   }
   if (!isAuthenticated) {
-    // loginWithRedirect();
     return (
       <>
-        <Button onClick={() => loginWithRedirect()}>Login</Button>
+        {window.location.href}
+        {deviceInfo.platform}
+        <Button onClick={() => loginWithRedirect({ redirectUri: redirectUris[deviceInfo.platform] })}>Login</Button>
+        {user?.email}
       </>
     );
   }
