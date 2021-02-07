@@ -11,10 +11,7 @@ const AuthorizedApolloProvider = (props: AuthorizedApolloProviderProps) => {
   const { getAccessTokenSilently } = useAuth0();
 
   const httpLink = createHttpLink({
-    uri:
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:4000/api/graphql'
-        : 'http://localhost:4000/api/graphql',
+    uri: process.env.REACT_APP_GRAPHQL_URI,
   });
 
   const authLink = setContext(async (_, { headers }) => {
