@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
-import { Avatar, IconButton, List, SwipeableDrawer, Box, Typography } from '@material-ui/core';
+import {
+  Avatar,
+  IconButton,
+  List,
+  SwipeableDrawer,
+  Box,
+  Typography,
+  ListItem,
+  ListItemIcon,
+  Icon,
+  ListItemText,
+} from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -48,6 +59,13 @@ const MainTopNav = () => {
           <NavItem to={paths.profile} label="Profile" icon="person" onClick={handleClose} />
           <NavItem to={paths.paymentMethod} label="Payment Method" icon="person" onClick={handleClose} />
           <NavItem to={paths.support} label="Support" icon="settings" onClick={handleClose} />
+
+          <ListItem component="a" href="https://www.gethelpers.ca/privacy-policy.html">
+            <ListItemIcon>
+              <Icon color="primary">privacy_tip</Icon>
+            </ListItemIcon>
+            <ListItemText primary="Privacy Policy" />
+          </ListItem>
           <NavItem label="Logout" icon="exit_to_app" to="#" onClick={handleLogout} />
         </List>
       </SwipeableDrawer>
