@@ -1,6 +1,6 @@
 ## Quickstart
 
-`npm install` before proceeding to other steps. Be sure to have env vars prepared. Running android or iOS requires android studio or xcode.
+`npm install` before proceeding to other steps. Running android or iOS requires android studio or xcode.
 
 ### Web
 
