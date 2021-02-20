@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { Landing, Home, Profile, PaymentMethod, Support, VisitNew, Visit } from './pages';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth } from './providers';
 import { paths } from './constants';
 import { MainTopNav } from './components';
 
 const App = () => {
-  const { isAuthenticated, error } = useAuth0();
+  const { isAuthenticated } = useAuth();
 
-  if (error) {
-    return <div>Oops... {error.message}</div>;
-  }
   if (!isAuthenticated) {
     return <Landing />;
   }

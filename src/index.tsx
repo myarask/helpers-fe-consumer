@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Auth0Provider } from '@auth0/auth0-react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from './theme';
@@ -9,25 +8,21 @@ import { loadStripe } from '@stripe/stripe-js';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { AuthorizedApolloProvider } from './providers';
+import { AuthorizedApolloProvider, AuthProvider } from './providers';
 
 const stripe = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 ReactDOM.render(
   <React.StrictMode>
     <Elements stripe={stripe}>
-      <Auth0Provider
-        domain={process.env.REACT_APP_AUTH_DOMAIN}
-        clientId={process.env.REACT_APP_AUTH_CLIENT_ID}
-        redirectUri={window.location.origin}
-      >
+      <AuthProvider>
         <AuthorizedApolloProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <App />
           </ThemeProvider>
         </AuthorizedApolloProvider>
-      </Auth0Provider>
+      </AuthProvider>
     </Elements>
   </React.StrictMode>,
   document.getElementById('root'),

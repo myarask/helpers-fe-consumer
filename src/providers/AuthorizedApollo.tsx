@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth } from './Auth';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 
@@ -8,21 +8,17 @@ type AuthorizedApolloProviderProps = {
 };
 
 const AuthorizedApolloProvider = (props: AuthorizedApolloProviderProps) => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { tokens } = useAuth();
 
   const httpLink = createHttpLink({
     uri: process.env.REACT_APP_GRAPHQL_URI,
   });
 
   const authLink = setContext(async (_, { headers }) => {
-    const token = await getAccessTokenSilently({
-      audience: process.env.REACT_APP_AUTH_AUDIENCE,
-    });
-
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : '',
+        authorization: tokens?.access?.token ? `Bearer ${tokens.access.token}` : '',
       },
     };
   });
