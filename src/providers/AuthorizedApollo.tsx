@@ -9,7 +9,6 @@ type AuthorizedApolloProviderProps = {
 
 const AuthorizedApolloProvider = (props: AuthorizedApolloProviderProps) => {
   const { tokens } = useAuth();
-
   const httpLink = createHttpLink({
     uri: process.env.REACT_APP_GRAPHQL_URI,
   });
