@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { Box, Button, Divider, Typography, List, LinearProgress } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -13,8 +13,6 @@ const Home = () => {
   if (myUser.loading || activeVisits.loading) return <LinearProgress />;
 
   const hasApprovedClients = myUser.data.myUser?.clients.some((client) => client.approvedAt);
-  // const { activeVisits, loading } = useActiveVisits();
-  // const { hasApprovedClients } = useIdentity();
 
   return (
     <Box display="flex" flexDirection="column" height="calc(100% - 50px)">

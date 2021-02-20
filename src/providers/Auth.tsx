@@ -5,6 +5,7 @@ interface AuthInterface {
   isAuthenticated: boolean;
   tokens: any;
   login: any;
+  logout: any;
 }
 
 type Profile = {
@@ -16,6 +17,7 @@ const Auth = React.createContext<AuthInterface>({
   isAuthenticated: false,
   tokens: null,
   login: () => null,
+  logout: () => null,
 });
 
 const useAuth = () => useContext(Auth);
@@ -53,7 +55,16 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  return <Auth.Provider value={{ isAuthenticated: isAuthenticated(), tokens, login }}>{children}</Auth.Provider>;
+  const logout = async () => {
+    localStorage.removeItem('tokens');
+    setTokens(null);
+
+    await auth.logout({ refreshToken: tokens.refresh.token });
+  };
+
+  return (
+    <Auth.Provider value={{ isAuthenticated: isAuthenticated(), tokens, login, logout }}>{children}</Auth.Provider>
+  );
 };
 
 export { useAuth, AuthProvider };
