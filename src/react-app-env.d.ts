@@ -8,5 +8,6 @@ declare namespace NodeJS {
     REACT_APP_AUTH_CLIENT_ID: string;
     REACT_APP_AUTH_AUDIENCE: string;
     REACT_APP_STRIPE_KEY: string;
+    REACT_APP_BACKEND_URI: string;
   }
 }

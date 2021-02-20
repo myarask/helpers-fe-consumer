@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import MenuIcon from '@material-ui/icons/Menu';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth } from '../providers';
 import { GET_MY_USER } from '../queries';
 import { paths } from '../constants';
 import { TopNav } from './TopNav';
@@ -21,13 +21,12 @@ import { Logo } from './Logo';
 import { NavItem } from './NavItem';
 
 const MainTopNav = () => {
-  const { isAuthenticated, logout } = useAuth0();
+  const { isAuthenticated, logout } = useAuth();
   const myUser = useQuery(GET_MY_USER);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
-  const handleLogout = () => logout({ returnTo: window.location.origin });
 
   if (!isAuthenticated) return null;
   if (myUser.loading) return null;
@@ -66,7 +65,7 @@ const MainTopNav = () => {
             </ListItemIcon>
             <ListItemText primary="Privacy Policy" />
           </ListItem>
-          <NavItem label="Logout" icon="exit_to_app" to="#" onClick={handleLogout} />
+          <NavItem label="Logout" icon="exit_to_app" to="#" onClick={logout} />
         </List>
       </SwipeableDrawer>
     </div>
