@@ -6,15 +6,16 @@ const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Box
       role="tabpanel"
+      flexGrow={1}
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box p={3}>{children}</Box>}
-    </div>
+      {value === index && children}
+    </Box>
   );
 };
 
@@ -59,40 +60,43 @@ const Landing = () => {
             <Tab label="Sign Up" />
           </Tabs>
 
-          <Box flexGrow={1} display="flex" flexDirection="column">
-            <Box flexGrow={1} p={2}>
-              <Box p={2}>
-                <Form>
-                  <Field fullWidth component={TextField} name="email" label="Email" type="email" />
-                  <Field fullWidth component={TextField} name="password" label="Password" type="password" />
-                </Form>
-              </Box>
-            </Box>
+          <Box p={4}>
+            <Form>
+              <Field fullWidth component={TextField} margin="dense" name="email" label="Email" type="email" />
+              <Field fullWidth component={TextField} margin="dense" name="password" label="Password" type="password" />
+            </Form>
           </Box>
 
           <TabPanel value={tabIndex} index={0}>
-            <Box p={2}>
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                disabled={isSubmitting}
-                onClick={() => {
-                  setFieldValue('type', 'login', false);
-                  handleSubmit();
-                }}
-              >
-                Log In
-              </Button>
-            </Box>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              disabled={isSubmitting}
+              style={{ borderRadius: '0px', height: '70px' }}
+              onClick={() => {
+                setFieldValue('type', 'login', false);
+                handleSubmit();
+              }}
+            >
+              Log In
+            </Button>
           </TabPanel>
           <TabPanel value={tabIndex} index={1}>
-            <Box p={2}>
+            <Box display="flex" flexDirection="column" style={{ height: '100%' }}>
+              <Box style={{ background: '#eee' }} p={3}>
+                <Typography variant="caption" align="center">
+                  By signing up, you agree to our terms of service and privacy policy.
+                </Typography>
+              </Box>
+              <Box flexGrow={1} />
+
               <Button
                 variant="contained"
                 color="primary"
                 fullWidth
                 disabled={isSubmitting}
+                style={{ borderRadius: '0px', height: '70px' }}
                 onClick={() => {
                   setFieldValue('type', 'signup', false);
                   handleSubmit();
