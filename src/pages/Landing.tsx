@@ -41,7 +41,7 @@ const Landing = () => {
       // onSubmit={(variables) => updateMyUser({ variables })}
     >
       {({ isSubmitting, setFieldValue, handleSubmit }) => (
-        <Box>
+        <Box style={{ height: '100%' }} display="flex" flexDirection="column">
           <Box p={4} style={{ background: '#edfafa' }}>
             <Typography align="center" variant="h1">
               Helpers: Home Care on Demand
@@ -59,7 +59,7 @@ const Landing = () => {
             <Tab label="Sign Up" />
           </Tabs>
 
-          <Box flexGrow={1} height="100%" display="flex" flexDirection="column">
+          <Box flexGrow={1} display="flex" flexDirection="column">
             <Box flexGrow={1} p={2}>
               <Box p={2}>
                 <Form>
