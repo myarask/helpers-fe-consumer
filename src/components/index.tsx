@@ -1,4 +1,5 @@
 export * from './BackTopNav';
+export * from './ErrorBoundary';
 export * from './Logo';
 export * from './MainTopNav';
 export * from './NavItem';

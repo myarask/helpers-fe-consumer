@@ -8,22 +8,31 @@ import { loadStripe } from '@stripe/stripe-js';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ErrorBoundary } from './components';
 import { AuthorizedApolloProvider, AuthProvider } from './providers';
+import { TrackJS } from 'trackjs';
+
+TrackJS.install({
+  token: '47a06cfac5de40e7b6a75a892696d01c',
+  application: 'consumer',
+});
 
 const stripe = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Elements stripe={stripe}>
-      <AuthProvider>
-        <AuthorizedApolloProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <App />
-          </ThemeProvider>
-        </AuthorizedApolloProvider>
-      </AuthProvider>
-    </Elements>
+    <ErrorBoundary>
+      <Elements stripe={stripe}>
+        <AuthProvider>
+          <AuthorizedApolloProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <App />
+            </ThemeProvider>
+          </AuthorizedApolloProvider>
+        </AuthProvider>
+      </Elements>
+    </ErrorBoundary>
   </React.StrictMode>,
   document.getElementById('root'),
 );
