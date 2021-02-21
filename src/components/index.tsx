@@ -3,4 +3,5 @@ export * from './Logo';
 export * from './MainTopNav';
 export * from './NavItem';
 export * from './ServiceIcon';
+export * from './TermsOfUse';
 export * from './TopNav';
