@@ -1,8 +1,9 @@
-import { Box, TextField, Tabs, Tab, Typography, Button } from '@material-ui/core';
+import { Box, TextField, Tabs, Tab, Typography, Button, Link } from '@material-ui/core';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import React, { useState } from 'react';
 import { useAuth } from '../providers';
+import { TermsOfUse } from '../components';
 
 const validationSchema = yup.object({
   email: yup.string().email('Enter a valid email').required('Email is required'),
@@ -30,12 +31,15 @@ const Landing = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [loginError, setLoginError] = useState(null);
   const [signupError, setSignupError] = useState(null);
+  const [open, setOpen] = useState(false);
   const auth = useAuth();
 
   const formik = useFormik({
     initialValues: {
-      email: 'test123@gmail.com',
-      password: '1234567890',
+      // email: 'test123@gmail.com',
+      // password: '1234567890',
+      email: '',
+      password: '',
       type: 'login',
     },
     validationSchema,
@@ -86,6 +90,7 @@ const Landing = () => {
             type="email"
             margin="dense"
             value={formik.values.email}
+            disabled={formik.isSubmitting}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
@@ -97,6 +102,7 @@ const Landing = () => {
             label="Password"
             type="password"
             margin="dense"
+            disabled={formik.isSubmitting}
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
@@ -127,10 +133,14 @@ const Landing = () => {
           <Box display="flex" flexDirection="column" style={{ height: '100%' }}>
             <Box style={{ background: '#eee' }} p={3} py={1}>
               <Typography variant="caption" align="center">
-                By signing up, you agree to our terms of service and{' '}
-                <a href="https://www.gethelpers.ca/privacy-policy.html" target="_blank" rel="noreferrer">
+                By signing up, you agree to our{' '}
+                <Link component="button" variant="caption" type="button" onClick={() => setOpen(true)}>
+                  terms of use
+                </Link>{' '}
+                and{' '}
+                <Link href="https://www.gethelpers.ca/privacy-policy.html" target="_blank" rel="noreferrer">
                   privacy policy
-                </a>
+                </Link>
                 .
               </Typography>
             </Box>
@@ -153,6 +163,7 @@ const Landing = () => {
           </Box>
         </TabPanel>
       </Box>
+      <TermsOfUse open={open} onClose={() => setOpen(false)} />
     </form>
   );
 };

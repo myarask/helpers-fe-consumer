@@ -3,7 +3,7 @@ import { auth } from '../services';
 
 interface AuthInterface {
   isAuthenticated: boolean;
-  tokens: any;
+  getAccessToken(): Promise<string | null>;
   login: any;
   logout: any;
   signup: any;
@@ -16,7 +16,10 @@ type AuthInput = {
 
 const Auth = React.createContext<AuthInterface>({
   isAuthenticated: false,
-  tokens: null,
+  getAccessToken: () =>
+    new Promise<string | null>((resolve) => {
+      resolve(null);
+    }),
   login: () => null,
   logout: () => null,
   signup: () => null,
@@ -68,8 +71,37 @@ const AuthProvider = ({ children }) => {
     });
   };
 
+  const getAccessToken = async () => {
+    if (!tokens?.access?.token || !tokens?.access?.expires) {
+      // No tokens
+      setTokens(null);
+      return null;
+    }
+    if (new Date(tokens.refresh.expires) < new Date()) {
+      // Refresh token is expired
+      setTokens(null);
+      return null;
+    }
+    if (new Date(tokens.access.expires) > new Date()) {
+      // Access token is still good
+      return tokens.access.token;
+    }
+
+    if (new Date(tokens.refresh.expires) > new Date()) {
+      // Refresh token is still good
+
+      // TODO: Error handling
+      const { data } = await auth.refreshToken({ refreshToken: tokens.refresh.token });
+      setTokens(data);
+
+      return data.access.token;
+    }
+
+    return null;
+  };
+
   return (
-    <Auth.Provider value={{ isAuthenticated: isAuthenticated(), tokens, login, logout, signup }}>
+    <Auth.Provider value={{ isAuthenticated: isAuthenticated(), getAccessToken, login, logout, signup }}>
       {children}
     </Auth.Provider>
   );
