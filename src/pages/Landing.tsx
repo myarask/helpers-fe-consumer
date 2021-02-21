@@ -29,6 +29,7 @@ const TabPanel = (props) => {
 const Landing = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [loginError, setLoginError] = useState(null);
+  const [signupError, setSignupError] = useState(null);
   const auth = useAuth();
 
   const formik = useFormik({
@@ -38,10 +39,13 @@ const Landing = () => {
       type: 'login',
     },
     validationSchema,
-    onSubmit: async (values) => {
-      if (values.type === 'login') {
+    onSubmit: async ({ type, ...input }) => {
+      if (type === 'login') {
         setLoginError(null);
-        await auth.login(values).catch(setLoginError);
+        await auth.login(input).catch(setLoginError);
+      } else if (type === 'signup') {
+        setSignupError(null);
+        await auth.signup(input).catch(setSignupError);
       }
     },
   });
@@ -73,7 +77,7 @@ const Landing = () => {
           <Tab label="Sign Up" />
         </Tabs>
 
-        <Box p={4}>
+        <Box p={4} py={2}>
           <TextField
             fullWidth
             id="email"
@@ -121,7 +125,7 @@ const Landing = () => {
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
           <Box display="flex" flexDirection="column" style={{ height: '100%' }}>
-            <Box style={{ background: '#eee' }} p={3}>
+            <Box style={{ background: '#eee' }} p={3} py={1}>
               <Typography variant="caption" align="center">
                 By signing up, you agree to our terms of service and{' '}
                 <a href="https://www.gethelpers.ca/privacy-policy.html" target="_blank" rel="noreferrer">
@@ -130,6 +134,7 @@ const Landing = () => {
                 .
               </Typography>
             </Box>
+            <Box p={4}>{signupError && <Typography color="error">Signup failed</Typography>}</Box>
             <Box flexGrow={1} />
 
             <Button

@@ -2,12 +2,20 @@ import axios from 'axios';
 
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URI;
 
+type AuthInputs = {
+  email: string;
+  password: string;
+};
+
 const auth = {
-  login: ({ email, password }: { email: string; password: string }) => {
-    return axios.post('/auth/login', { email, password });
+  login: (input: AuthInputs) => {
+    return axios.post('/auth/login', input);
   },
-  logout: (body: { refreshToken: string }) => {
-    return axios.post('/auth/logout', body);
+  logout: (input: { refreshToken: string }) => {
+    return axios.post('/auth/logout', input);
+  },
+  signup: (input: AuthInputs) => {
+    return axios.post('/auth/register', input);
   },
 };
 

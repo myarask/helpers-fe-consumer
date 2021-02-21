@@ -6,9 +6,10 @@ interface AuthInterface {
   tokens: any;
   login: any;
   logout: any;
+  signup: any;
 }
 
-type Profile = {
+type AuthInput = {
   email: string;
   password: string;
 };
@@ -18,6 +19,7 @@ const Auth = React.createContext<AuthInterface>({
   tokens: null,
   login: () => null,
   logout: () => null,
+  signup: () => null,
 });
 
 const useAuth = () => useContext(Auth);
@@ -47,11 +49,9 @@ const AuthProvider = ({ children }) => {
     }
   }, [tokens]);
 
-  const login = (profile: Profile) => {
-    return auth.login(profile).then((resp) => {
+  const login = (input: AuthInput) => {
+    return auth.login(input).then((resp) => {
       setTokens(resp.data.tokens);
-
-      console.log('here');
     });
   };
 
@@ -62,8 +62,16 @@ const AuthProvider = ({ children }) => {
     await auth.logout({ refreshToken: tokens.refresh.token });
   };
 
+  const signup = (input: AuthInput) => {
+    return auth.signup(input).then((resp) => {
+      setTokens(resp.data.tokens);
+    });
+  };
+
   return (
-    <Auth.Provider value={{ isAuthenticated: isAuthenticated(), tokens, login, logout }}>{children}</Auth.Provider>
+    <Auth.Provider value={{ isAuthenticated: isAuthenticated(), tokens, login, logout, signup }}>
+      {children}
+    </Auth.Provider>
   );
 };
 
