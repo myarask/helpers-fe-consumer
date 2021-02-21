@@ -90,6 +90,7 @@ const Landing = () => {
             type="email"
             margin="dense"
             value={formik.values.email}
+            disabled={formik.isSubmitting}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
@@ -101,6 +102,7 @@ const Landing = () => {
             label="Password"
             type="password"
             margin="dense"
+            disabled={formik.isSubmitting}
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
