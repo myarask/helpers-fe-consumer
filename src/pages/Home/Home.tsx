@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { Box, Button, Divider, Typography, List, LinearProgress } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -7,8 +7,16 @@ import { paths } from '../../constants';
 import { GET_ACTIVE_VISITS, GET_MY_USER } from '../../queries';
 
 const Home = () => {
-  const activeVisits = useQuery(GET_ACTIVE_VISITS, { pollInterval: 10000 });
+  const activeVisits = useQuery(GET_ACTIVE_VISITS);
   const myUser = useQuery(GET_MY_USER);
+
+  useEffect(() => {
+    activeVisits.startPolling(10000);
+
+    return () => {
+      activeVisits.stopPolling();
+    };
+  }, [activeVisits]);
 
   if (myUser.loading || activeVisits.loading) return <LinearProgress />;
 
