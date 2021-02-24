@@ -48,7 +48,7 @@ const VisitNew = () => {
   const activeVisits = useQuery(GET_ACTIVE_VISITS);
   const [draftVisit] = useMutation(DRAFT_VISIT, { refetchQueries: [{ query: GET_ACTIVE_VISITS }] });
   const history = useHistory();
-  const [clientId, setClientId] = useState(myUser.data?.myUser?.clients[0].id);
+  const [clientId, setClientId] = useState(myUser.data?.myUser?.clients[0]?.id);
   const [serviceIds, setServiceIds] = useState<number[]>([]);
   const [notes, setNotes] = useState('');
   const [covid1, setCovid1] = useState('');
