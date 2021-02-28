@@ -12,10 +12,12 @@ import { ErrorBoundary } from './components';
 import { AuthorizedApolloProvider, AuthProvider } from './providers';
 import { TrackJS } from 'trackjs';
 
-TrackJS.install({
-  token: '47a06cfac5de40e7b6a75a892696d01c',
-  application: 'consumer',
-});
+if (process.env.NODE_ENV === 'production') {
+  TrackJS.install({
+    token: '47a06cfac5de40e7b6a75a892696d01c',
+    application: 'consumer',
+  });
+}
 
 const stripe = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
