@@ -36,7 +36,7 @@ const MainTopNav = () => {
     return (
       <>
         <Typography color="error">Failed to load user data</Typography>
-        <Button onclick={logout}>Log out</Button>
+        <Button onClick={logout}>Log out</Button>
       </>
     );
   }
