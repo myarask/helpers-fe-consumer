@@ -42,7 +42,9 @@ const PaymentMethod = () => {
 
   if (myUser.loading || !stripe || !elements) return <LinearProgress />;
 
-  console.log(myUser);
+  if (myUser.error) {
+    return <Typography color="error">Failed to load user data</Typography>;
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();

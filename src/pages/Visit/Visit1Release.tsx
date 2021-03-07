@@ -9,6 +9,18 @@ import { getTotals } from '../../utils';
 import ServiceList from './ServiceList';
 import { RELEASE_VISIT, GET_MY_USER, GET_ACTIVE_VISITS, GET_VISIT } from '../../queries';
 
+const ReleaseTopNav = () => (
+  <TopNav>
+    <IconButton aria-label="Go Back" component={Link} to={paths.visitNew}>
+      <ChevronLeftIcon htmlColor="#FFF" />
+    </IconButton>
+    <Typography variant="h1">
+      <b>Confirm Order</b>
+    </Typography>
+    <Box width="44px" visibility="hidden" />
+  </TopNav>
+);
+
 const VisitRelease = () => {
   const { id } = useParams<{ id: string }>();
   const variables = { id: Number(id) };
@@ -27,7 +39,24 @@ const VisitRelease = () => {
   });
   const history = useHistory();
 
-  if (visit.loading || myUser.loading) return <LinearProgress />;
+  if (visit.loading || myUser.loading) {
+    return (
+      <>
+        <ReleaseTopNav />
+        <LinearProgress />
+      </>
+    );
+  }
+
+  if (myUser.error || visit.error) {
+    return (
+      <>
+        <ReleaseTopNav />
+        {myUser.error && <Typography color="error">Failed to load user data</Typography>}
+        {visit.error && <Typography color="error">Failed to load the visit</Typography>}
+      </>
+    );
+  }
 
   const { services, baseFee, client, notes } = visit.data.visit;
   const { taxes, total, serviceFees } = getTotals(services, baseFee);
@@ -43,15 +72,7 @@ const VisitRelease = () => {
 
   return (
     <>
-      <TopNav>
-        <IconButton aria-label="Go Back" component={Link} to={paths.visitNew}>
-          <ChevronLeftIcon htmlColor="#FFF" />
-        </IconButton>
-        <Typography variant="h1">
-          <b>Confirm Order</b>
-        </Typography>
-        <Box width="44px" visibility="hidden" />
-      </TopNav>
+      <ReleaseTopNav />
       <Box m={2}>
         <ServiceList services={services} />
       </Box>

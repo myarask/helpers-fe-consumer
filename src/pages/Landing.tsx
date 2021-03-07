@@ -117,6 +117,7 @@ const Landing = () => {
             <Button
               variant="contained"
               color="primary"
+              type="submit"
               fullWidth
               disabled={formik.isSubmitting}
               style={{ borderRadius: '0px', height: '70px' }}
@@ -149,6 +150,7 @@ const Landing = () => {
 
             <Button
               variant="contained"
+              type="submit"
               color="primary"
               fullWidth
               disabled={formik.isSubmitting}

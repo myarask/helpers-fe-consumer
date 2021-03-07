@@ -43,6 +43,7 @@ const CenterComponent = () => (
 );
 
 const VisitNew = () => {
+  const classes = useStyles();
   const myUser = useQuery(GET_MY_USER);
   const services = useQuery(GET_SERVICES);
   const activeVisits = useQuery(GET_ACTIVE_VISITS);
@@ -77,7 +78,16 @@ const VisitNew = () => {
     history.push(paths.visit.replace(':id', resp.data.draftVisit.id));
   };
 
-  const classes = useStyles();
+  if (myUser.error || services.error || activeVisits.error) {
+    return (
+      <>
+        <BackTopNav CenterComponent={CenterComponent} />
+        {myUser.error && <Typography color="error">Failed to load user data</Typography>}
+        {services.error && <Typography color="error">Failed to load services data</Typography>}
+        {activeVisits.error && <Typography color="error">Failed to load active visits</Typography>}
+      </>
+    );
+  }
 
   return (
     <>

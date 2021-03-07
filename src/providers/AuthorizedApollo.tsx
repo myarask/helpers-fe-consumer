@@ -3,6 +3,7 @@ import { useAuth } from './Auth';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { ErrorResponse, onError } from '@apollo/client/link/error';
+import { TrackJS } from 'trackjs';
 
 type AuthorizedApolloProviderProps = {
   children: React.ReactNode;
@@ -28,7 +29,10 @@ const AuthorizedApolloProvider = (props: AuthorizedApolloProviderProps) => {
   const logoutLink = onError(({ networkError }: ErrorResponse) => {
     if (networkError && 'statusCode' in networkError && networkError.statusCode === 401) {
       logout();
+      return;
     }
+
+    TrackJS.track({ error: networkError });
   });
 
   const client = new ApolloClient({

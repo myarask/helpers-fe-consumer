@@ -13,6 +13,15 @@ const VisitFinished = () => {
 
   if (visit.loading) return <LinearProgress />;
 
+  if (visit.error) {
+    return (
+      <>
+        <BackTopNav />
+        <Typography color="error">Failed to load the visit</Typography>
+      </>
+    );
+  }
+
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <BackTopNav />

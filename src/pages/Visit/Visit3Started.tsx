@@ -26,6 +26,15 @@ const VisitStarted = () => {
 
   if (visit.loading) return <LinearProgress />;
 
+  if (visit.error) {
+    return (
+      <>
+        <BackTopNav />
+        <Typography color="error">Failed to load the visit</Typography>
+      </>
+    );
+  }
+
   const { startedAt, agencyUser, services, client, notes } = visit.data.visit;
 
   return (

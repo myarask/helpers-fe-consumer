@@ -19,11 +19,15 @@ const Profile = () => {
 
   if (myUser.loading) return <LinearProgress />;
 
+  if (myUser.error) {
+    return <Typography color="error">Failed to load user data</Typography>;
+  }
+
   return (
     <Formik
       initialValues={{
-        fullName: myUser.data.myUser?.fullName,
-        phoneNumber: myUser.data.myUser?.phoneNumber,
+        fullName: myUser.data.myUser?.fullName || '',
+        phoneNumber: myUser.data.myUser?.phoneNumber || '',
       }}
       validationSchema={validationSchema}
       onSubmit={(variables) => updateMyUser({ variables })}

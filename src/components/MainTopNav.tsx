@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   Avatar,
+  Button,
   IconButton,
   List,
   SwipeableDrawer,
@@ -30,6 +31,15 @@ const MainTopNav = () => {
 
   if (!isAuthenticated) return null;
   if (myUser.loading) return null;
+
+  if (myUser.error) {
+    return (
+      <>
+        <Typography color="error">Failed to load user data</Typography>
+        <Button onclick={logout}>Log out</Button>
+      </>
+    );
+  }
 
   return (
     <div>

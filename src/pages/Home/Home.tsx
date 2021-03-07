@@ -20,6 +20,15 @@ const Home = () => {
 
   if (myUser.loading || activeVisits.loading) return <LinearProgress />;
 
+  if (myUser.error || activeVisits.error) {
+    return (
+      <>
+        {myUser.error && <Typography color="error">Failed to load user data</Typography>}
+        {activeVisits.error && <Typography color="error">Failed to load active visits</Typography>}
+      </>
+    );
+  }
+
   const hasApprovedClients = myUser.data.myUser?.clients.some((client) => client.approvedAt);
 
   return (
