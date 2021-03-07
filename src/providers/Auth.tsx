@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { auth } from '../services';
+import { TrackJS } from 'trackjs';
 
 interface AuthInterface {
   isAuthenticated: boolean;
@@ -90,11 +91,16 @@ const AuthProvider = ({ children }) => {
     if (new Date(tokens.refresh.expires) > new Date()) {
       // Refresh token is still good
 
-      // TODO: Error handling
-      const { data } = await auth.refreshToken({ refreshToken: tokens.refresh.token });
-      setTokens(data);
+      try {
+        const { data } = await auth.refreshToken({ refreshToken: tokens.refresh.token });
+        setTokens(data);
 
-      return data.access.token;
+        return data.access.token;
+      } catch (error) {
+        TrackJS.track({ error });
+        setTokens(null);
+        return null;
+      }
     }
 
     return null;
