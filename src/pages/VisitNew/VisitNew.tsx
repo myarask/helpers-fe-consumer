@@ -44,10 +44,11 @@ const CenterComponent = () => (
 
 const VisitNew = () => {
   const classes = useStyles();
-  const myUser = useQuery(GET_MY_USER);
+  // Using cache-and-network so that client data is refreshed during onboarding
+  const myUser = useQuery(GET_MY_USER, { fetchPolicy: 'cache-and-network' });
   const services = useQuery(GET_SERVICES);
   const activeVisits = useQuery(GET_ACTIVE_VISITS);
-  const [draftVisit] = useMutation(DRAFT_VISIT, { refetchQueries: [{ query: GET_ACTIVE_VISITS }] });
+  const [draftVisit, draftVisitState] = useMutation(DRAFT_VISIT, { refetchQueries: [{ query: GET_ACTIVE_VISITS }] });
   const history = useHistory();
   const [clientId, setClientId] = useState(myUser.data?.myUser?.clients[0]?.id);
   const [serviceIds, setServiceIds] = useState<number[]>([]);
@@ -219,6 +220,7 @@ const VisitNew = () => {
                   fullWidth
                   onClick={handleProceed}
                   disabled={
+                    draftVisitState.loading ||
                     activeVisits.loading ||
                     isAlreadyBooked ||
                     !hasApprovedClients ||
@@ -228,9 +230,9 @@ const VisitNew = () => {
                     covid3 !== 'no'
                   }
                 >
-                  Proceed
+                  {draftVisitState.loading ? 'Proceeding...' : 'Proceed'}
                 </Button>
-                <Button fullWidth component={Link} to={paths.home}>
+                <Button fullWidth component={Link} to={paths.home} disabled={draftVisitState.loading}>
                   Go Back
                 </Button>
               </Box>

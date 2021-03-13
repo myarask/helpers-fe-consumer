@@ -26,7 +26,7 @@ const VisitRelease = () => {
   const variables = { id: Number(id) };
   const visit = useQuery(GET_VISIT, { variables });
   const myUser = useQuery(GET_MY_USER);
-  const [releaseVisit, { loading: isReleasing }] = useMutation(RELEASE_VISIT, {
+  const [releaseVisit, releaseVisitStatus] = useMutation(RELEASE_VISIT, {
     refetchQueries: [
       {
         query: GET_ACTIVE_VISITS,
@@ -118,10 +118,16 @@ const VisitRelease = () => {
       <Box p={2}>
         <Typography align="center">Confirm order by tapping &quot;Find a Helper&quot;</Typography>
         <Box py={1} />
-        <Button variant="contained" color="primary" fullWidth onClick={handleProceed} disabled={isReleasing}>
-          Find a Helper
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={handleProceed}
+          disabled={releaseVisitStatus.loading}
+        >
+          {releaseVisitStatus.loading ? 'Finding a Helper...' : 'Find a Helper'}
         </Button>
-        <Button fullWidth component={Link} to={paths.visitNew}>
+        <Button fullWidth component={Link} to={paths.visitNew} disabled={releaseVisitStatus.loading}>
           Go Back
         </Button>
       </Box>

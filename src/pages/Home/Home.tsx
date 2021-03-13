@@ -8,7 +8,8 @@ import { GET_ACTIVE_VISITS, GET_MY_USER } from '../../queries';
 
 const Home = () => {
   const activeVisits = useQuery(GET_ACTIVE_VISITS);
-  const myUser = useQuery(GET_MY_USER);
+  // Using cache-and-network so that client data is refreshed during onboarding
+  const myUser = useQuery(GET_MY_USER, { fetchPolicy: 'cache-and-network' });
 
   useEffect(() => {
     activeVisits.startPolling(10000);
