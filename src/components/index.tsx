@@ -2,6 +2,7 @@ export * from './BackTopNav';
 export * from './ErrorBoundary';
 export * from './Logo';
 export * from './MainTopNav';
+export * from './ModalForgotPassword';
 export * from './NavItem';
 export * from './ServiceIcon';
 export * from './TermsOfUse';

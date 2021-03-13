@@ -6,6 +6,10 @@ type RefreshTokenInputs = {
   refreshToken: string;
 };
 
+type ResetInputs = {
+  email;
+};
+
 type AuthInputs = {
   email: string;
   password: string;
@@ -23,6 +27,9 @@ const auth = {
   },
   refreshToken: (input: RefreshTokenInputs) => {
     return axios.post('/auth/refresh-tokens', input);
+  },
+  forgotPassword: (input: ResetInputs) => {
+    return axios.post('/auth/forgot-password', input);
   },
 };
 

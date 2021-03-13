@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import React, { useState } from 'react';
 import { useAuth } from '../providers';
-import { TermsOfUse } from '../components';
+import { ModalForgotPassword, TermsOfUse } from '../components';
 
 const validationSchema = yup.object({
   email: yup.string().email('Enter a valid email').required('Email is required'),
@@ -31,6 +31,7 @@ const Landing = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [loginError, setLoginError] = useState(null);
   const [signupError, setSignupError] = useState(null);
+  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const auth = useAuth();
 
@@ -108,6 +109,9 @@ const Landing = () => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
+          <Link component="button" variant="caption" type="button" onClick={() => setIsForgotPasswordOpen(true)}>
+            Forgot your password?
+          </Link>
         </Box>
 
         <TabPanel value={tabIndex} index={0}>
@@ -166,6 +170,11 @@ const Landing = () => {
         </TabPanel>
       </Box>
       <TermsOfUse open={open} onClose={() => setOpen(false)} />
+      <ModalForgotPassword
+        open={isForgotPasswordOpen}
+        onClose={() => setIsForgotPasswordOpen(false)}
+        email={formik.values.email}
+      />
     </form>
   );
 };
