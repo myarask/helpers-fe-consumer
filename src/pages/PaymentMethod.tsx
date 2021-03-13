@@ -38,6 +38,7 @@ const PaymentMethod = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasCardError, setHasCardError] = useState(false);
   const [saveMyCard] = useMutation(SAVE_MY_CARD, { refetchQueries: [{ query: GET_MY_USER }] });
 
   if (myUser.loading || !stripe || !elements) return <LinearProgress />;
@@ -49,6 +50,7 @@ const PaymentMethod = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitting(true);
+    setHasCardError(false);
 
     const card = elements.getElement(CardNumberElement);
 
@@ -63,13 +65,21 @@ const PaymentMethod = () => {
     });
 
     if (error || !paymentMethod) {
+      setHasCardError(true);
       setIsSubmitting(false);
       return;
     }
 
     const variables = { paymentMethodId: paymentMethod.id };
 
-    await saveMyCard({ variables });
+    try {
+      await saveMyCard({ variables });
+    } catch (e) {
+      console.log(e);
+      setHasCardError(true);
+      setIsSubmitting(false);
+      return;
+    }
     // await refetch();
 
     const visitId = query.get('visitId');
@@ -112,6 +122,12 @@ const PaymentMethod = () => {
           <CardCvcElement options={CARD_ELEMENT_OPTIONS} />
         </Typography>
 
+        {hasCardError && (
+          <Typography gutterBottom color="error">
+            Failed to save payment method information. Please contact{' '}
+            <a href="https://www.gethelpers.ca/contact.html">Helpers support</a>.
+          </Typography>
+        )}
         <Button variant="contained" type="submit" fullWidth color="primary" disabled={isSubmitting}>
           Save Card
         </Button>
