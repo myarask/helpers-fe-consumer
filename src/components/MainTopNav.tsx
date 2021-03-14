@@ -53,7 +53,12 @@ const MainTopNav = () => {
         <Box width="44px" />
       </TopNav>
 
-      <SwipeableDrawer open={open} onClose={handleClose} onOpen={handleOpen}>
+      <SwipeableDrawer
+        open={open}
+        onClose={handleClose}
+        onOpen={handleOpen}
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
+      >
         <Box p={2}>
           <Avatar alt={myUser.data.myUser?.fullName ?? 'Unknown'} />
           <Box pt={3}>

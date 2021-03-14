@@ -11,6 +11,7 @@ const useStyles = makeStyles(() => ({
     paddingLeft: '0.5rem',
     display: 'flex',
     justifyContent: 'space-between',
+    paddingTop: 'env(safe-area-inset-top)',
   },
 }));
 
