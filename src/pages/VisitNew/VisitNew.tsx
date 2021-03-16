@@ -56,6 +56,8 @@ const VisitNew = () => {
   const [covid1, setCovid1] = useState('');
   const [covid2, setCovid2] = useState('');
   const [covid3, setCovid3] = useState('');
+  const [covid4, setCovid4] = useState('');
+  const [covid5, setCovid5] = useState('');
   const client = myUser.data?.myUser?.clients?.find(({ id }) => id === clientId);
 
   const isAlreadyBooked = activeVisits.data?.activeVisits?.some((visit) => visit.client.id === clientId);
@@ -172,46 +174,93 @@ const VisitNew = () => {
                 }
                 label="The care recipient is not a COVID-19 risk"
               /> */}
-              <Typography variant="h2" gutterBottom>
-                COVID-19 Screening
-              </Typography>
-              <Typography gutterBottom>
-                <b>1. Does {client?.fullName} have any of the following new or worsening symptoms or signs?</b>
-              </Typography>
-              <Typography>- Fever or chills</Typography>
-              <Typography>- Difficulty breathing or shortness of breath</Typography>
-              <Typography>- Cough</Typography>
-              <Typography>- Sore throat, trouble swallowing</Typography>
-              <Typography>- Runny nose/stuffy nose or nasal congestion</Typography>
-              <Typography>- Decrease or loss of smell or taste</Typography>
-              <Typography>- Nausea, vomiting, diarrhea, abdominal pain</Typography>
-              <Typography gutterBottom>- Not feeling well, extreme tiredness, sore muscles</Typography>
-              <Typography gutterBottom>
-                <i>Symptoms should not be chronic or related to other known causes or conditions.</i>
-              </Typography>
+              {client && (
+                <Box>
+                  <Typography variant="h2" gutterBottom>
+                    <b>COVID-19 Screening</b>
+                  </Typography>
+                  <Typography gutterBottom>
+                    Before proceeding, we ask that you fill the COVID-19 screening questions{' '}
+                    <a href="https://covid-19.ontario.ca/screening/worker/" target="_blank" rel="noreferrer">
+                      recommended by the government of Ontario
+                    </a>
+                  </Typography>
+                  <Typography gutterBottom>
+                    We ask for this information as a screening mechanism for our user&apos;s safety. This data is not
+                    collected or stored against your account.
+                  </Typography>
+                  <Box py={1} />
+                  <Typography gutterBottom>
+                    <b>1. Does {client?.fullName} have any of the following new or worsening symptoms or signs?</b>
+                  </Typography>
+                  <Typography>- Fever or chills</Typography>
+                  <Typography>- Cough or barking cough (croup)</Typography>
+                  <Typography>- Shortness of breath</Typography>
+                  <Typography>- Decrease or loss of smell or taste</Typography>
+                  <Typography>- Sore throat</Typography>
+                  <Typography>- Difficulty swallowing</Typography>
+                  <Typography>- Pink eye</Typography>
+                  <Typography>- Runny or stuffy/congested nose</Typography>
+                  <Typography>- Headache that’s unusual or long lasting</Typography>
+                  <Typography>- Digestive issues like nausea/vomiting, diarrhea, stomach pain</Typography>
+                  <Typography>- Muscle aches that are unusual or long lasting</Typography>
+                  <Typography>- Extreme tiredness that is unusual</Typography>
+                  <Typography gutterBottom>- Falling down often</Typography>
+                  <Typography gutterBottom>
+                    <i>Symptoms should not be chronic or related to other known causes or conditions.</i>
+                  </Typography>
 
-              <RadioGroup row value={covid1} onChange={(e) => setCovid1(e.target.value)}>
-                <FormControlLabel value="yes" control={<Radio color="primary" />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio color="primary" />} label="No" />
-              </RadioGroup>
+                  <RadioGroup row value={covid1} onChange={(e) => setCovid1(e.target.value)}>
+                    <FormControlLabel value="yes" control={<Radio color="primary" />} label="Yes" />
+                    <FormControlLabel value="no" control={<Radio color="primary" />} label="No" />
+                  </RadioGroup>
 
-              <Typography gutterBottom>
-                <b>2. Has {client?.fullName} travelled outside of Canada in the past 14 days?</b>
-              </Typography>
+                  <Typography gutterBottom>
+                    <b>2. Has {client?.fullName} travelled outside of Canada in the past 14 days?</b>
+                  </Typography>
 
-              <RadioGroup row value={covid2} onChange={(e) => setCovid2(e.target.value)}>
-                <FormControlLabel value="yes" control={<Radio color="primary" />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio color="primary" />} label="No" />
-              </RadioGroup>
+                  <RadioGroup row value={covid2} onChange={(e) => setCovid2(e.target.value)}>
+                    <FormControlLabel value="yes" control={<Radio color="primary" />} label="Yes" />
+                    <FormControlLabel value="no" control={<Radio color="primary" />} label="No" />
+                  </RadioGroup>
 
-              <Typography gutterBottom>
-                <b>3. Has {client?.fullName} had close contact with a confirmed or probable case of COVID-19?</b>
-              </Typography>
+                  <Typography gutterBottom>
+                    <b>
+                      3. In the last 14 days, has a public health unit identified {client?.fullName} as a close contact
+                      of someone who currently has COVID-19?
+                    </b>
+                  </Typography>
 
-              <RadioGroup row value={covid3} onChange={(e) => setCovid3(e.target.value)}>
-                <FormControlLabel value="yes" control={<Radio color="primary" />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio color="primary" />} label="No" />
-              </RadioGroup>
+                  <RadioGroup row value={covid3} onChange={(e) => setCovid3(e.target.value)}>
+                    <FormControlLabel value="yes" control={<Radio color="primary" />} label="Yes" />
+                    <FormControlLabel value="no" control={<Radio color="primary" />} label="No" />
+                  </RadioGroup>
+
+                  <Typography gutterBottom>
+                    <b>
+                      4. Has a doctor, health care provider, or public health unit told you that {client?.fullName}{' '}
+                      should currently be isolating (staying at home)?
+                    </b>
+                  </Typography>
+
+                  <RadioGroup row value={covid4} onChange={(e) => setCovid4(e.target.value)}>
+                    <FormControlLabel value="yes" control={<Radio color="primary" />} label="Yes" />
+                    <FormControlLabel value="no" control={<Radio color="primary" />} label="No" />
+                  </RadioGroup>
+
+                  <Typography gutterBottom>
+                    <b>
+                      5. In the last 14 days, has {client?.fullName} received a COVID Alert exposure notification on
+                      their cell? If they already went for a test and got a negative result, select &quot;No.&quot;
+                    </b>
+                  </Typography>
+
+                  <RadioGroup row value={covid5} onChange={(e) => setCovid5(e.target.value)}>
+                    <FormControlLabel value="yes" control={<Radio color="primary" />} label="Yes" />
+                    <FormControlLabel value="no" control={<Radio color="primary" />} label="No" />
+                  </RadioGroup>
+                </Box>
+              )}
 
               <Box mt={3}>
                 <Button
@@ -227,7 +276,9 @@ const VisitNew = () => {
                     !serviceIds.length ||
                     covid1 !== 'no' ||
                     covid2 !== 'no' ||
-                    covid3 !== 'no'
+                    covid3 !== 'no' ||
+                    covid4 !== 'no' ||
+                    covid5 !== 'no'
                   }
                 >
                   {draftVisitState.loading ? 'Proceeding...' : 'Proceed'}
