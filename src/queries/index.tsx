@@ -84,6 +84,7 @@ const GET_SERVICES = gql`
     services {
       id
       name
+      description
       fee
     }
   }

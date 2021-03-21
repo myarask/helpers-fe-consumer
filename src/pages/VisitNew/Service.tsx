@@ -27,29 +27,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const descriptions = {
-  1: 'Assistance with bathing, personal hygiene, toileting or dressing.',
-  2: 'Lifting and transfers, including from sit to stand, wheelchair assistance.',
-  3: 'An in person reminder and assistance for scheduled medications',
-  4: 'Transfers including from bed, sit to stand and wheelchair assistance',
-  5: 'Assistance with bathing or showering',
-  6: 'Assistance with selecting and putting on proper clothing',
-  7: 'Assistance with grooming, oral, nail and hair care',
-  8: 'Preparation of light meals (heating, table setting, light prep/cutting)',
-  9: 'Assistance with taking meds on time',
-  10: 'Assistance with  (wash, dry, fold, bedding change)',
-  11: 'Light cleaning (sweep, vacuum), tidying up, removing trash and clutter (purchased in 60min increments)',
-};
-
 type ServiceProps = {
   id: string;
   name: string;
+  description: string;
   included: string;
   fee: number;
   onClick: () => void;
 };
 
-const Service = ({ onClick, id, name, included, fee }: ServiceProps) => {
+const Service = ({ onClick, description, name, included, fee }: ServiceProps) => {
   const classes = useStyles();
 
   return (
@@ -63,7 +50,7 @@ const Service = ({ onClick, id, name, included, fee }: ServiceProps) => {
             </Typography>
 
             <Typography variant="body2" gutterBottom>
-              {descriptions[id]}
+              {description}
             </Typography>
 
             <Typography variant="h1" color="primary">

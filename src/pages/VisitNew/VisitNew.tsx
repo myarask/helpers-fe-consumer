@@ -164,17 +164,8 @@ const VisitNew = () => {
 
               <Divider light className={classes.divider} />
 
-              {/* <FormControlLabel
-                control={
-                  <Checkbox
-                    color="primary"
-                    checked={check1}
-                    onChange={() => setCheck1((prev) => !prev)}
-                  />
-                }
-                label="The care recipient is not a COVID-19 risk"
-              /> */}
-              {client && (
+              {/* TODO: Re-introduce COVID-19 questions*/}
+              {/* {client && (
                 <Box>
                   <Typography variant="h2" gutterBottom>
                     <b>COVID-19 Screening</b>
@@ -260,7 +251,7 @@ const VisitNew = () => {
                     <FormControlLabel value="no" control={<Radio color="primary" />} label="No" />
                   </RadioGroup>
                 </Box>
-              )}
+              )} */}
 
               <Box mt={3}>
                 <Button
@@ -273,12 +264,12 @@ const VisitNew = () => {
                     activeVisits.loading ||
                     isAlreadyBooked ||
                     !hasApprovedClients ||
-                    !serviceIds.length ||
-                    covid1 !== 'no' ||
-                    covid2 !== 'no' ||
-                    covid3 !== 'no' ||
-                    covid4 !== 'no' ||
-                    covid5 !== 'no'
+                    !serviceIds.length
+                    // covid1 !== 'no' ||
+                    // covid2 !== 'no' ||
+                    // covid3 !== 'no' ||
+                    // covid4 !== 'no' ||
+                    // covid5 !== 'no'
                   }
                 >
                   {draftVisitState.loading ? 'Proceeding...' : 'Proceed'}
